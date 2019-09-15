@@ -30,13 +30,13 @@ import org.w3c.dom.Document;
  */
 public class frame_telaprincipal extends javax.swing.JFrame {
 	// classe utilizada para comunicacao com diferentes Stocks APIs
-	public mierclasses.mcstocksapicomms msapicomms;
+	public communication.mcstocksapicomms msapicomms;
 	// classe utilizada para comunicacao com Bot do Telegram
-	public mierclasses.mctelegramcomms mstelegramcomms;
+	public communication.mctelegramcomms mstelegramcomms;
 
 	// classe noassetsmensagem, jpanel que aparece quando nao tem nenhum asset em
 	// analise
-	analisadorasset.panel_noassetsmensagem nam;
+	assetparser.panel_noassetsmensagem nam;
 
 	/**
 	 * Creates new form TelaPrincipal
@@ -56,7 +56,7 @@ public class frame_telaprincipal extends javax.swing.JFrame {
 		// holder do analisador de asset do item de asset
 		jPanelHolderAnalisadorAsset.setLayout(new java.awt.GridLayout(1, 1));
 		// comecar mostrando a janela de sem assets
-		nam = new analisadorasset.panel_noassetsmensagem();
+		nam = new assetparser.panel_noassetsmensagem();
 		jPanelHolderAnalisadorAsset.add(nam);
 
 		// popular msapicomms, utilizando para comunicar com diferentes APIs de stock
@@ -78,8 +78,8 @@ public class frame_telaprincipal extends javax.swing.JFrame {
 		// habilitar remocao de zeros
 		// alterar fuso-horario do environment Java
 
-		msapicomms = new mierclasses.mcstocksapicomms();
-		mstelegramcomms = new mierclasses.mctelegramcomms();
+		msapicomms = new communication.mcstocksapicomms();
+		mstelegramcomms = new communication.mctelegramcomms();
 
 		// <editor-fold defaultstate="collapsed" desc="carregar general.mfxconfig para
 		// associar chaves de Stocks APIs e do Telegram">
@@ -99,7 +99,7 @@ public class frame_telaprincipal extends javax.swing.JFrame {
 				String alphavantagekey = document.getElementsByTagName("AVKEY").item(0).getTextContent();
 				msapicomms.av_alterarchaveapi(alphavantagekey);
 			} catch (Exception e) {
-				mierclasses.mcfuncoeshelper.mostrarmensagem(
+				communication.mcfuncoeshelper.mostrarmensagem(
 						"Alpha Vantage API key missing. Please aqcuire one for use at https://www.alphavantage.co/.");
 			}
 
@@ -108,7 +108,7 @@ public class frame_telaprincipal extends javax.swing.JFrame {
 				String cryptocomparekey = document.getElementsByTagName("CCKEY").item(0).getTextContent();
 				msapicomms.crycom_alterarchaveapi(cryptocomparekey);
 			} catch (Exception e) {
-				mierclasses.mcfuncoeshelper.mostrarmensagem(
+				communication.mcfuncoeshelper.mostrarmensagem(
 						"CryptoCompare API key missing. Please aqcuire one for use at https://www.cryptocompare.com/.");
 			}
 
@@ -124,7 +124,7 @@ public class frame_telaprincipal extends javax.swing.JFrame {
 				else
 					mstelegramcomms.ativo = false;
 			} catch (Exception e) {
-				mierclasses.mcfuncoeshelper.mostrarmensagem(
+				communication.mcfuncoeshelper.mostrarmensagem(
 						"Telegram parameters missing. Please find the relevant information from https://telegram.org/.");
 			}
 
@@ -137,7 +137,7 @@ public class frame_telaprincipal extends javax.swing.JFrame {
 				else
 					msapicomms.math_tirarzeros = false;
 			} catch (Exception e) {
-				mierclasses.mcfuncoeshelper.mostrarmensagem("Candles processing parameters missing.");
+				communication.mcfuncoeshelper.mostrarmensagem("Candles processing parameters missing.");
 			}
 
 			// change application timezone if necessary
@@ -148,10 +148,10 @@ public class frame_telaprincipal extends javax.swing.JFrame {
 					java.util.TimeZone.setDefault(java.util.TimeZone.getTimeZone(apptzstring));
 				}
 			} catch (Exception e) {
-				mierclasses.mcfuncoeshelper.mostrarmensagem("TimeZone processing parameter is missing.");
+				communication.mcfuncoeshelper.mostrarmensagem("TimeZone processing parameter is missing.");
 			}
 		} catch (Exception e) {
-			mierclasses.mcfuncoeshelper.mostrarmensagem("Uma exceção ocorreu: " + e.toString());
+			communication.mcfuncoeshelper.mostrarmensagem("Uma exceção ocorreu: " + e.toString());
 		}
 		// </editor-fold>
 
@@ -160,14 +160,14 @@ public class frame_telaprincipal extends javax.swing.JFrame {
 	void adicionarNovoAnalisadorAsset() throws IOException {
 		// funcao para adicionar novo itemanalisadorasset no programa, e este
 		// itemanalisadorasset tem um submodulografico associado a ele.
-		analisadorasset.panel_itemanalisadorasset novompig = new analisadorasset.panel_itemanalisadorasset(this);
+		assetparser.panel_itemanalisadorasset novompig = new assetparser.panel_itemanalisadorasset(this);
 
 		// adicionar itemanalisadorasset ao jPanelItensGrafico
 		jPanelItensAnalisadorAsset.add(novompig);
 
 		// selecionar automaticamente ultimo componente adicionado
 		int novonumeroassets = jPanelItensAnalisadorAsset.getComponentCount();
-		selecionarItemAnalisadorAsset((analisadorasset.panel_itemanalisadorasset) jPanelItensAnalisadorAsset
+		selecionarItemAnalisadorAsset((assetparser.panel_itemanalisadorasset) jPanelItensAnalisadorAsset
 				.getComponent(novonumeroassets - 1));
 
 		// revalidar componentes apos alteracoes graficas e criacoes
@@ -175,13 +175,13 @@ public class frame_telaprincipal extends javax.swing.JFrame {
 		this.repaint();
 	}
 
-	public void removerAnalisadorAsset(analisadorasset.panel_itemanalisadorasset mpiadeletar) {
+	public void removerAnalisadorAsset(assetparser.panel_itemanalisadorasset mpiadeletar) {
 		jPanelItensAnalisadorAsset.remove(mpiadeletar);
 		jPanelHolderAnalisadorAsset.removeAll();
 
 		int numeroassetsatual = jPanelItensAnalisadorAsset.getComponentCount();
 		if (numeroassetsatual > 0)
-			selecionarItemAnalisadorAsset((analisadorasset.panel_itemanalisadorasset) jPanelItensAnalisadorAsset
+			selecionarItemAnalisadorAsset((assetparser.panel_itemanalisadorasset) jPanelItensAnalisadorAsset
 					.getComponent(numeroassetsatual - 1));
 		else
 			jPanelHolderAnalisadorAsset.add(nam);
@@ -190,13 +190,13 @@ public class frame_telaprincipal extends javax.swing.JFrame {
 		this.repaint();
 	}
 
-	public void selecionarItemAnalisadorAsset(analisadorasset.panel_itemanalisadorasset mpigselecionar) {
+	public void selecionarItemAnalisadorAsset(assetparser.panel_itemanalisadorasset mpigselecionar) {
 		// funcao para selecionar item grafico
 
 		// pintar todos os itens graficos com a cor padrao e esconder os seus submodulos
 		int numeroassetsatual = jPanelItensAnalisadorAsset.getComponentCount();
 		for (int i = 0; i < numeroassetsatual; i++) {
-			analisadorasset.panel_itemanalisadorasset mpigatual = (analisadorasset.panel_itemanalisadorasset) jPanelItensAnalisadorAsset
+			assetparser.panel_itemanalisadorasset mpigatual = (assetparser.panel_itemanalisadorasset) jPanelItensAnalisadorAsset
 					.getComponent(i);
 			mpigatual.jPanelSub.setBackground(new java.awt.Color(55, 55, 55));
 		}
@@ -332,7 +332,7 @@ public class frame_telaprincipal extends javax.swing.JFrame {
 
 	private void jButtonJanelaConfiguracoesActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jButtonJanelaConfiguracoesActionPerformed
 	{// GEN-HEADEREND:event_jButtonJanelaConfiguracoesActionPerformed
-		outrasopcoes.frame_outrasopcoes mfcg = new outrasopcoes.frame_outrasopcoes(this);
+		options.frame_outrasopcoes mfcg = new options.frame_outrasopcoes(this);
 		mfcg.show();
 	}// GEN-LAST:event_jButtonJanelaConfiguracoesActionPerformed
 

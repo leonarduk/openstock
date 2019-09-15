@@ -42,7 +42,7 @@ public class OpenStock extends Application
         }
         catch (Exception ex)
         {
-            mierclasses.mcfuncoeshelper.mostrarmensagem("A problem has occurred when initializing Open Stock. Exception: " + ex.getLocalizedMessage());
+            communication.mcfuncoeshelper.mostrarmensagem("A problem has occurred when initializing Open Stock. Exception: " + ex.getLocalizedMessage());
         }
 
     }
