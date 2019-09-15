@@ -128,7 +128,7 @@ public class panel_itemindicador extends javax.swing.JPanel {
 
 		try {
 			File xmlArquivo = new File(
-					getClass().getClassLoader().getResource("indicators.mfxconfig").getFile());
+					getClass().getClassLoader().getResource("bearcode/indicators/indicators.mfxconfig").getFile());
 			if (!xmlArquivo.exists()) {
 				throw new IOException("Cant find file");
 			}
@@ -155,7 +155,9 @@ public class panel_itemindicador extends javax.swing.JPanel {
 						// mierclasses.mcfuncoeshelper.mostrarmensagem("nome: " + nome);
 						String arquivobcode = elIndicador.getElementsByTagName("BearcodeFile").item(0).getTextContent();
 						// mierclasses.mcfuncoeshelper.mostrarmensagem("arquivobcode: " + arquivobcode);
-//						caminhoarquivobci = rootjar + "/outfiles/bearcode/indicators/" + arquivobcode;
+						caminhoarquivobci = new File(getClass().getClassLoader()
+								.getResource("bearcode/indicators/" + arquivobcode).getFile()).getAbsolutePath();
+
 						// mierclasses.mcfuncoeshelper.mostrarmensagem("caminhoarquivobci: " +
 						// caminhoarquivobci);
 						break;
@@ -173,6 +175,9 @@ public class panel_itemindicador extends javax.swing.JPanel {
 		// passar para conteudoscriptbci o codigo javascript bearcode
 		java.util.List<String> lines = java.util.Collections.emptyList();
 		try {
+			String pastascriptsind = new File(getClass().getClassLoader().getResource("bearcode/indicators").getFile())
+					.getAbsolutePath();
+
 			lines = java.nio.file.Files.readAllLines(java.nio.file.Paths.get(caminhoarquivobci),
 					java.nio.charset.StandardCharsets.UTF_8);
 

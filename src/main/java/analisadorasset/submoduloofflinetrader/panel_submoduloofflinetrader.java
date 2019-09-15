@@ -298,7 +298,7 @@ public class panel_submoduloofflinetrader extends javax.swing.JPanel {
 		try {
 			jComboBoxScriptAtualTraderbot.removeAllItems();
 
-			File xmlArquivo = new File(getClass().getClassLoader().getResource("indicators.mfxconfig").getFile());
+			File xmlArquivo = new File(getClass().getClassLoader().getResource("bearcode/indicators/indicators.mfxconfig").getFile());
 			if (!xmlArquivo.exists()) {
 				throw new IOException("Cant find file");
 			}
@@ -348,7 +348,7 @@ public class panel_submoduloofflinetrader extends javax.swing.JPanel {
 		// bearcode utilizando o id">
 
 		try {
-			File xmlArquivo = new File(getClass().getClassLoader().getResource("indicators.mfxconfig").getFile());
+			File xmlArquivo = new File(getClass().getClassLoader().getResource("bearcode/indicators/indicators.mfxconfig").getFile());
 			if (!xmlArquivo.exists()) {
 				throw new IOException("Cant find file");
 			}
@@ -375,7 +375,9 @@ public class panel_submoduloofflinetrader extends javax.swing.JPanel {
 						// mierclasses.mcfuncoeshelper.mostrarmensagem("nome: " + nome);
 						String arquivobcode = elIndicador.getElementsByTagName("BearcodeFile").item(0).getTextContent();
 						// mierclasses.mcfuncoeshelper.mostrarmensagem("arquivobcode: " + arquivobcode);
-//						caminhoarquivobci = rootjar + "/outfiles/bearcode/traderbots/" + arquivobcode;
+						caminhoarquivobci = new File(getClass().getClassLoader()
+								.getResource("bearcode/indicators/" + arquivobcode).getFile()).getAbsolutePath();
+
 						// mierclasses.mcfuncoeshelper.mostrarmensagem("caminhoarquivobci: " +
 						// caminhoarquivobci);
 						break;

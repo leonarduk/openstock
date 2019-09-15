@@ -16,6 +16,7 @@
  */
 package outrasopcoes.editorbearcodetraderbot;
 
+import java.io.File;
 import java.io.IOException;
 
 import mierclasses.mccandle;
@@ -407,8 +408,9 @@ public class frame_editorbearcodetraderbot extends javax.swing.JFrame {
 	void salvararquivobcodeedicao() {
 		try {
 			javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
-			String rootjar = mierclasses.mcfuncoeshelper.retornarpathbaseprograma();
-			String pastascriptsbot = rootjar + "/outfiles/bearcode/traderbots";
+			String pastascriptsbot = new File(getClass().getClassLoader().getResource("bearcode/traderbots").getFile())
+					.getAbsolutePath();
+
 			fileChooser.setCurrentDirectory(new java.io.File(pastascriptsbot));
 			javax.swing.filechooser.FileFilter filter = new mierclasses.mcextensionfilefilter("Bearcode File",
 					new String[] { "bearcode" });
@@ -436,8 +438,8 @@ public class frame_editorbearcodetraderbot extends javax.swing.JFrame {
 		try {
 			// abrir janela para selecionar arquivo de save para carregar
 			javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
-			String rootjar = mierclasses.mcfuncoeshelper.retornarpathbaseprograma();
-			String pastascriptsbot = rootjar + "/outfiles/bearcode/traderbots";
+			String pastascriptsbot = new File(getClass().getClassLoader().getResource("bearcode/traderbots").getFile())
+					.getAbsolutePath();
 			fileChooser.setCurrentDirectory(new java.io.File(pastascriptsbot));
 			javax.swing.filechooser.FileFilter filter = new mierclasses.mcextensionfilefilter("Bearcode File",
 					new String[] { "bearcode" });

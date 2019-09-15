@@ -22,9 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		<CCKEY>CCKEYMISSING</CCKEY>
 	</StocksAPI>
 	<TelegramAPI>
-		<TelegramActivate>false</TelegramActivate>
-		<TelegramBotToken>BOTTOKENMISSING</TelegramBotToken>
-		<TelegramUserID>USERIDMISSING</TelegramUserID>
+		<TelegramActivate>true</TelegramActivate>
+		<TelegramBotToken>908948587:AAEGqPYzz6YB3IW6kQ3Knc380l0BHEhjE3g</TelegramBotToken>
+		<TelegramUserID>335560124</TelegramUserID>
 	</TelegramAPI>
 	<Other>
 		<CandleRemoveZeros>true</CandleRemoveZeros>

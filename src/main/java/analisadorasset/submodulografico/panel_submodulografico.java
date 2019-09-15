@@ -17,6 +17,7 @@
 package analisadorasset.submodulografico;
 
 import java.awt.Color;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -520,9 +521,8 @@ public class panel_submodulografico extends javax.swing.JPanel {
 		for (int i = 0; i < jPanelIndicadores.getComponentCount(); i++) {
 			analisadorasset.submodulografico.panel_itemindicador miia = (analisadorasset.submodulografico.panel_itemindicador) jPanelIndicadores
 					.getComponent(i);
-			String rootjar = mierclasses.mcfuncoeshelper.retornarpathbaseprograma();
-			String caminhoimagem = rootjar + "/outfiles/assets/upgray.png";
-			miia.jLabelEscolherGraficoParaBottom.setIcon(new javax.swing.ImageIcon(caminhoimagem));
+			File file = new File(getClass().getClassLoader().getResource("assets/upgray.png").getFile());
+			miia.jLabelEscolherGraficoParaBottom.setIcon(new javax.swing.ImageIcon(file.getAbsolutePath()));
 			miia.chartseparadoembottom = false;
 		}
 
@@ -537,8 +537,9 @@ public class panel_submodulografico extends javax.swing.JPanel {
 				mpiidestacarabaixo.mcbcindicador.pontosx_lastrun, mpiidestacarabaixo.mcbcindicador.pontosy_lastrun,
 				mpiidestacarabaixo.mcbcindicador.tituloscript_lastrun,
 				mpiidestacarabaixo.mcbcindicador.tipoplot_lastrun));
-		String rootjar = mierclasses.mcfuncoeshelper.retornarpathbaseprograma();
-		String caminhoimagem = rootjar + "/outfiles/assets/downgray.png";
+		String caminhoimagem = new File(getClass().getClassLoader().getResource("assets/downgray.png").getFile())
+				.getAbsolutePath();
+
 		mpiidestacarabaixo.jLabelEscolherGraficoParaBottom.setIcon(new javax.swing.ImageIcon(caminhoimagem));
 		mpiidestacarabaixo.chartseparadoembottom = true;
 
@@ -554,8 +555,9 @@ public class panel_submodulografico extends javax.swing.JPanel {
 		for (int i = 0; i < jPanelIndicadores.getComponentCount(); i++) {
 			analisadorasset.submodulografico.panel_itemindicador miia = (analisadorasset.submodulografico.panel_itemindicador) jPanelIndicadores
 					.getComponent(i);
-			String rootjar = mierclasses.mcfuncoeshelper.retornarpathbaseprograma();
-			String caminhoimagem = rootjar + "/outfiles/assets/upgray.png";
+			String caminhoimagem = new File(getClass().getClassLoader().getResource("assets/upgray.png").getFile())
+					.getAbsolutePath();
+
 			miia.jLabelEscolherGraficoParaBottom.setIcon(new javax.swing.ImageIcon(caminhoimagem));
 			miia.chartseparadoembottom = false;
 		}
@@ -761,8 +763,9 @@ public class panel_submodulografico extends javax.swing.JPanel {
 	boolean painelinferioraparecendo = false;
 
 	public void mostrarPainelInferior() {
-		String rootjar = mierclasses.mcfuncoeshelper.retornarpathbaseprograma();
-		String caminhoimagem = rootjar + "/outfiles/assets/downgray.png";
+		String caminhoimagem = new File(getClass().getClassLoader().getResource("assets/downgray.png").getFile())
+				.getAbsolutePath();
+
 		jLabelPainelInferior.setIcon(new javax.swing.ImageIcon(caminhoimagem));
 		jPanelInferior.setVisible(true);
 		painelinferioraparecendo = true;
@@ -770,8 +773,9 @@ public class panel_submodulografico extends javax.swing.JPanel {
 	}
 
 	public void esconderPainelInferior() {
-		String rootjar = mierclasses.mcfuncoeshelper.retornarpathbaseprograma();
-		String caminhoimagem = rootjar + "/outfiles/assets/upgray.png";
+		String caminhoimagem = new File(getClass().getClassLoader().getResource("assets/upgray.png").getFile())
+				.getAbsolutePath();
+
 		jLabelPainelInferior.setIcon(new javax.swing.ImageIcon(caminhoimagem));
 		jPanelInferior.setVisible(false);
 		painelinferioraparecendo = false;

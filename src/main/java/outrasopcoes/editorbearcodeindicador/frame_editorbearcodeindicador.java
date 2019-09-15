@@ -16,6 +16,7 @@
  */
 package outrasopcoes.editorbearcodeindicador;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -137,8 +138,9 @@ public class frame_editorbearcodeindicador extends javax.swing.JFrame {
 	void salvararquivobcodeedicao() {
 		try {
 			javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
-			String rootjar = mierclasses.mcfuncoeshelper.retornarpathbaseprograma();
-			String pastascriptsind = rootjar + "/outfiles/bearcode/indicators";
+			String pastascriptsind = new File(getClass().getClassLoader().getResource("bearcode/indicators").getFile())
+					.getAbsolutePath();
+
 			fileChooser.setCurrentDirectory(new java.io.File(pastascriptsind));
 			javax.swing.filechooser.FileFilter filter = new mierclasses.mcextensionfilefilter("Bearcode File",
 					new String[] { "bearcode" });
@@ -166,8 +168,8 @@ public class frame_editorbearcodeindicador extends javax.swing.JFrame {
 		try {
 			// abrir janela para selecionar arquivo de save para carregar
 			javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
-			String rootjar = mierclasses.mcfuncoeshelper.retornarpathbaseprograma();
-			String pastascriptsind = rootjar + "/outfiles/bearcode/indicators";
+			String pastascriptsind = new File(getClass().getClassLoader().getResource("bearcode/indicators").getFile())
+					.getAbsolutePath();
 			fileChooser.setCurrentDirectory(new java.io.File(pastascriptsind));
 			javax.swing.filechooser.FileFilter filter = new mierclasses.mcextensionfilefilter("Bearcode File",
 					new String[] { "bearcode" });

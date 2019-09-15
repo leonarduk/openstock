@@ -55,7 +55,7 @@ public class frame_adicionarindicador extends javax.swing.JFrame {
 			jComboBoxIndicadoresDisponiveis.removeAllItems();
 
 			File xmlArquivo = new File(
-					getClass().getClassLoader().getResource("indicators.mfxconfig").getFile());
+					getClass().getClassLoader().getResource("bearcode/indicators/indicators.mfxconfig").getFile());
 			if (!xmlArquivo.exists()) {
 				throw new IOException("Cant find file");
 			}
