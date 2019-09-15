@@ -18,7 +18,6 @@ package communication;
 
 import java.io.File;
 
-import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
 /**
@@ -40,7 +39,7 @@ public class mcextensionfilefilter extends FileFilter {
     } else {
       this.description = description;
     }
-    this.extensions = (String[]) extensions.clone();
+    this.extensions = extensions.clone();
     toLower(this.extensions);
   }
 
@@ -50,11 +49,13 @@ public class mcextensionfilefilter extends FileFilter {
     }
   }
 
-  public String getDescription() {
+  @Override
+public String getDescription() {
     return description;
   }
 
-  public boolean accept(File file) {
+  @Override
+public boolean accept(File file) {
     if (file.isDirectory()) {
       return true;
     } else {

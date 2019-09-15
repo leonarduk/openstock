@@ -161,7 +161,7 @@ public class PieChartFXDemo1 extends Application {
         stage.setTitle("JFreeChart: PieChartFXDemo1.java"); 
         stage.setWidth(700);
         stage.setHeight(390);
-        stage.show(); 
+        stage.setVisible(true); 
     }
     
     /**

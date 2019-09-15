@@ -113,7 +113,7 @@ public class BarChartFXDemo1 extends Application implements ChartMouseListenerFX
         stage.setTitle("JFreeChart: BarChartFXDemo1.java"); 
         stage.setWidth(700);
         stage.setHeight(390);
-        stage.show(); 
+        stage.setVisible(true); 
     }
     
     /**

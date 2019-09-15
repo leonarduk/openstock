@@ -16,6 +16,8 @@
  */
 package communication;
 
+import options.editorbearcodetraderbot.frame_editorbearcodetraderbot;
+
 /**
  *
  * @author lucasmeyer
@@ -78,7 +80,7 @@ public class mcofflinetrader
         else if (tipopai.equals("editorbearcodetraderbot") == true)
         {
             
-            java.util.List<Double> bidask = editorbctraderbotpai.telappai.msapicomms.offline_simularbidaskcandles(editorbctraderbotpai.candlessimulacao);
+            java.util.List<Double> bidask = frame_editorbearcodetraderbot.telappai.msapicomms.offline_simularbidaskcandles(editorbctraderbotpai.candlessimulacao);
             double bid = bidask.get(0);
             double ask = bidask.get(1);
             

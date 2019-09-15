@@ -18,414 +18,385 @@ package options.editorbearcodeindicador;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import org.jfree.ui.TextAnchor;
 
-import options.editorbearcodetraderbot.*;
+import org.jfree.ui.TextAnchor;
 
 /**
  *
  * @author meyerlu
  */
 
+public class frame_resultadosbearcodeindicador extends javax.swing.JFrame {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -2484763404686312382L;
+	static communication.mcbcindicatorinterpreter mcbciip;
 
-public class frame_resultadosbearcodeindicador extends javax.swing.JFrame
-{
-    static communication.mcbcindicatorinterpreter mcbciip;
-            
-    /**
-     * Creates new form frame_resultadosbearcodetraderbot
-     */
-    public frame_resultadosbearcodeindicador(communication.mcbcindicatorinterpreter mcbcii)
-    {
-        initComponents();
+	/**
+	 * @param args the command line arguments
+	 */
+	public static void main(String args[]) {
+		/* Set the Nimbus look and feel */
+		// <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
+		// (optional) ">
+		/*
+		 * If Nimbus (introduced in Java SE 6) is not available, stay with the default
+		 * look and feel. For details see
+		 * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+		 */
+		try {
+			for (final javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					javax.swing.UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		} catch (final ClassNotFoundException ex) {
+			java.util.logging.Logger.getLogger(frame_resultadosbearcodeindicador.class.getName())
+					.log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (final InstantiationException ex) {
+			java.util.logging.Logger.getLogger(frame_resultadosbearcodeindicador.class.getName())
+					.log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (final IllegalAccessException ex) {
+			java.util.logging.Logger.getLogger(frame_resultadosbearcodeindicador.class.getName())
+					.log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (final javax.swing.UnsupportedLookAndFeelException ex) {
+			java.util.logging.Logger.getLogger(frame_resultadosbearcodeindicador.class.getName())
+					.log(java.util.logging.Level.SEVERE, null, ex);
+		}
+		// </editor-fold>
+		// </editor-fold>
 
-        mcbciip = mcbcii;
-        
-        criargraficoindicador
-        (
-            mcbciip.pontosx_lastrun,
-            mcbciip.pontosy_lastrun,
-            mcbciip.tituloscript_lastrun,
-            mcbciip.tipoplot_lastrun
-        );
-        jPanelChartResults.removeAll();
-        jPanelChartResults.setLayout(new java.awt.BorderLayout());
-        jPanelChartResults.add(chartpanelseparado);
-        //tirar cursor do chart
-        java.awt.Toolkit tk = java.awt.Toolkit.getDefaultToolkit();
-        byte bogus[] = { (byte) 0 };
-        java.awt.Cursor blankCursor = tk.createCustomCursor( tk.createImage( bogus ), new java.awt.Point(0, 0), "" );
-        jPanelChartResults.setCursor(blankCursor);
-        
-        this.validate();
-    }
+		/* Create and display the form */
+		java.awt.EventQueue.invokeLater(() -> new frame_resultadosbearcodeindicador(mcbciip).setVisible(true));
+	}
 
-    
-    org.jfree.chart.ChartPanel chartpanelseparado = null;
-    void criargraficoindicador(Object xvalues, Object yvalues, String tituloscript, String desenhografico)
-    {
+	org.jfree.chart.ChartPanel chartpanelseparado = null;
+	// <editor-fold defaultstate="collapsed" desc="Adicionando Crosshair a este
+	// grafico">
+	java.util.List<org.jfree.chart.annotations.XYAnnotation> crosshair_preview;
 
-        
-        if (desenhografico.equals("drawoncandles"))
-        {
-            //interpretar valores de x como double, e de y como date
-            double[] yvalues_double = (double[]) yvalues;
-            java.util.Date[] xvalues_date = (java.util.Date[]) xvalues;
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private javax.swing.JPanel jPanelChartResults;
+	private javax.swing.JPanel jPanelPai;
+	// End of variables declaration//GEN-END:variables
 
-            //criar timeseries com os dados
-            org.jfree.data.time.TimeSeries seriesadd = new org.jfree.data.time.TimeSeries(tituloscript);
-            for (int i = 0; i < yvalues_double.length; i++)
-            {
+	/**
+	 * Creates new form frame_resultadosbearcodetraderbot
+	 */
+	public frame_resultadosbearcodeindicador(communication.mcbcindicatorinterpreter mcbcii) {
+		this.initComponents();
 
-                org.jfree.data.time.Millisecond millisegundoatual
-                        = new org.jfree.data.time.Millisecond(xvalues_date[i]);
+		mcbciip = mcbcii;
 
-                double valoratual = yvalues_double[i];
+		this.criargraficoindicador(mcbciip.pontosx_lastrun, mcbciip.pontosy_lastrun, mcbciip.tituloscript_lastrun,
+				mcbciip.tipoplot_lastrun);
+		this.jPanelChartResults.removeAll();
+		this.jPanelChartResults.setLayout(new java.awt.BorderLayout());
+		this.jPanelChartResults.add(this.chartpanelseparado);
+		// tirar cursor do chart
+		final java.awt.Toolkit tk = java.awt.Toolkit.getDefaultToolkit();
+		final byte bogus[] = { (byte) 0 };
+		final java.awt.Cursor blankCursor = tk.createCustomCursor(tk.createImage(bogus), new java.awt.Point(0, 0), "");
+		this.jPanelChartResults.setCursor(blankCursor);
 
-                seriesadd.add(millisegundoatual, valoratual);
-            }
+		this.validate();
+	}
 
-            //criar dataset e associar timeseries ao dataset
-            org.jfree.data.time.TimeSeriesCollection datasettimeseries = new org.jfree.data.time.TimeSeriesCollection();
-            datasettimeseries.addSeries(seriesadd);
+	// </editor-fold>
 
-            //criar renderer
-            org.jfree.chart.renderer.xy.XYLineAndShapeRenderer renderer = new org.jfree.chart.renderer.xy.DefaultXYItemRenderer();
-            renderer.setBaseShapesVisible(false);
-            renderer.setSeriesStroke(0, new BasicStroke(0.75f));
-            renderer.setSeriesPaint(0, Color.BLACK);
+	public java.util.List<org.jfree.chart.annotations.XYAnnotation> adicionarplotohlc_anotacaofixacrosshair(
+			org.jfree.chart.ChartMouseEvent cmevent) {
 
-            //criar ranges
-            org.jfree.chart.axis.DateAxis domainAxis = new org.jfree.chart.axis.DateAxis("");
-            org.jfree.chart.axis.NumberAxis rangeAxis = new org.jfree.chart.axis.NumberAxis("");
+		// atualizar range e posicao atual do grafico
+		final java.awt.geom.Point2D p = this.chartpanelseparado
+				.translateScreenToJava2D(cmevent.getTrigger().getPoint());
+		final java.awt.geom.Rectangle2D plotArea = this.chartpanelseparado.getChartRenderingInfo().getPlotInfo()
+				.getDataArea();
+		final org.jfree.chart.plot.XYPlot plot = (org.jfree.chart.plot.XYPlot) this.chartpanelseparado.getChart()
+				.getPlot(); // your plot
+		final double mcg_posmousex = plot.getDomainAxis().java2DToValue(p.getX(), plotArea, plot.getDomainAxisEdge());
+		final double mcg_posmousey = plot.getRangeAxis().java2DToValue(p.getY(), plotArea, plot.getRangeAxisEdge());
+		final org.jfree.data.Range mcg_rangex = plot.getDomainAxis().getRange();
+		final org.jfree.data.Range mcg_rangey = plot.getRangeAxis().getRange();
 
-            //criar xyplot e associar dataset e renderer ao xyplot
-            org.jfree.chart.plot.XYPlot plot = new org.jfree.chart.plot.XYPlot(datasettimeseries,domainAxis,rangeAxis,renderer);
-            plot.setDataset(datasettimeseries);
-            plot.setRenderer(renderer);
-            
-            //criar chart
-            org.jfree.chart.JFreeChart chart = new org.jfree.chart.JFreeChart(tituloscript.toUpperCase(), null,plot,false);
+		// ponto central do crosshair
+		final double centrocrosshair_x = mcg_posmousex;
+		final double centrocrosshair_y = mcg_posmousey;
 
-            //criar chartpanel
-            chartpanelseparado = new org.jfree.chart.ChartPanel(chart);
-            chartpanelseparado.addChartMouseListener(new org.jfree.chart.ChartMouseListener()
-            {
-                public void chartMouseClicked(org.jfree.chart.ChartMouseEvent e)
-                {
-                }
+		// criando linha horizontal cinza
+		final double lh_p1_x = mcg_rangex.getLowerBound();
+		final double lh_p1_y = centrocrosshair_y;
+		final double lh_p2_x = mcg_rangex.getUpperBound();
+		final double lh_p2_y = centrocrosshair_y;
+		final org.jfree.chart.annotations.XYLineAnnotation xylh = new org.jfree.chart.annotations.XYLineAnnotation(
+				lh_p1_x, lh_p1_y, lh_p2_x, lh_p2_y, new BasicStroke(0.4f), Color.BLUE);
 
-                public void chartMouseMoved(org.jfree.chart.ChartMouseEvent e)
-                {
-                    executaranotacaofixa_crosshair_mmove(e);
-                }
-            });
+		// criando linha vertical cinza
+		final double lv_p1_x = centrocrosshair_x;
+		final double lv_p1_y = mcg_rangey.getUpperBound();
+		final double lv_p2_x = centrocrosshair_x;
+		final double lv_p2_y = mcg_rangey.getLowerBound();
+		final org.jfree.chart.annotations.XYLineAnnotation xylv = new org.jfree.chart.annotations.XYLineAnnotation(
+				lv_p1_x, lv_p1_y, lv_p2_x, lv_p2_y, new BasicStroke(0.4f), Color.BLUE);
 
-        }
-        else if (desenhografico.equals("drawseparateline"))
-        {
-            //interpretar valores de x como double, e de y como date
-            double[] yvalues_double = (double[]) yvalues;
-            java.util.Date[] xvalues_date = (java.util.Date[]) xvalues;
+		// texto preco
+		final String textopreco = String.format("%.4f", mcg_posmousey);
+		final org.jfree.chart.annotations.XYTextAnnotation xytextopreco = new org.jfree.chart.annotations.XYTextAnnotation(
+				textopreco, lh_p1_x, centrocrosshair_y);
+		xytextopreco.setTextAnchor(TextAnchor.TOP_LEFT);
 
-            //criar timeseries com os dados
-            org.jfree.data.time.TimeSeries seriesadd = new org.jfree.data.time.TimeSeries(tituloscript);
-            for (int i = 0; i < yvalues_double.length; i++)
-            {
+		// texto data
+		final String datacrosshair = new java.util.Date((long) mcg_posmousex).toString();
+		final String textodata = datacrosshair;
+		final org.jfree.chart.annotations.XYTextAnnotation xytextodata = new org.jfree.chart.annotations.XYTextAnnotation(
+				textodata, centrocrosshair_x, lv_p2_y);
+		xytextodata.setTextAnchor(TextAnchor.BOTTOM_LEFT);
 
-                org.jfree.data.time.Millisecond millisegundoatual
-                        = new org.jfree.data.time.Millisecond(xvalues_date[i]);
+		plot.addAnnotation(xylh);
+		plot.addAnnotation(xylv);
+		plot.addAnnotation(xytextopreco);
+		plot.addAnnotation(xytextodata);
 
-                double valoratual = yvalues_double[i];
+		final java.util.List<org.jfree.chart.annotations.XYAnnotation> subannotations = new java.util.ArrayList<>();
+		subannotations.add(xylh);
+		subannotations.add(xylv);
+		subannotations.add(xytextopreco);
+		subannotations.add(xytextodata);
 
-                seriesadd.add(millisegundoatual, valoratual);
-            }
+		return subannotations;
+	}
 
-            //criar dataset e associar timeseries ao dataset
-            org.jfree.data.time.TimeSeriesCollection datasettimeseries = new org.jfree.data.time.TimeSeriesCollection();
-            datasettimeseries.addSeries(seriesadd);
+	void criargraficoindicador(Object xvalues, Object yvalues, String tituloscript, String desenhografico) {
 
-            //criar renderer
-            org.jfree.chart.renderer.xy.XYLineAndShapeRenderer renderer = new org.jfree.chart.renderer.xy.DefaultXYItemRenderer();
-            renderer.setBaseShapesVisible(false);
-            renderer.setBaseStroke(new BasicStroke(2.0f));
+		if (desenhografico.equals("drawoncandles")) {
+			// interpretar valores de x como double, e de y como date
+			final double[] yvalues_double = (double[]) yvalues;
+			final java.util.Date[] xvalues_date = (java.util.Date[]) xvalues;
 
-            //criar ranges
-            org.jfree.chart.axis.DateAxis domainAxis = new org.jfree.chart.axis.DateAxis("");
-            org.jfree.chart.axis.NumberAxis rangeAxis = new org.jfree.chart.axis.NumberAxis("");
+			// criar timeseries com os dados
+			final org.jfree.data.time.TimeSeries seriesadd = new org.jfree.data.time.TimeSeries(tituloscript);
+			for (int i = 0; i < yvalues_double.length; i++) {
 
-            //criar xyplot e associar dataset e renderer ao xyplot
-            org.jfree.chart.plot.XYPlot plot = new org.jfree.chart.plot.XYPlot(datasettimeseries,domainAxis,rangeAxis,renderer);
-            plot.setDataset(datasettimeseries);
-            plot.setRenderer(renderer);
-            
-            //criar chart
-            org.jfree.chart.JFreeChart chart = new org.jfree.chart.JFreeChart(tituloscript.toUpperCase(), null,plot,false);
+				final org.jfree.data.time.Millisecond millisegundoatual = new org.jfree.data.time.Millisecond(
+						xvalues_date[i]);
 
-            //criar chartpanel
-            chartpanelseparado = new org.jfree.chart.ChartPanel(chart);
-            chartpanelseparado.addChartMouseListener(new org.jfree.chart.ChartMouseListener()
-            {
-                public void chartMouseClicked(org.jfree.chart.ChartMouseEvent e)
-                {
-                }
+				final double valoratual = yvalues_double[i];
 
-                public void chartMouseMoved(org.jfree.chart.ChartMouseEvent e)
-                {
-                    executaranotacaofixa_crosshair_mmove(e);
-                }
-            });
-            
-        }
-        else if (desenhografico.equals("drawseparatebar"))
-        {
-            //interpretar valores de x como double, e de y como date
-            double[] yvalues_double = (double[]) yvalues;
-            java.util.Date[] xvalues_date = (java.util.Date[]) xvalues;
+				seriesadd.add(millisegundoatual, valoratual);
+			}
 
-            //criar timeseries com os dados
-            org.jfree.data.time.TimeSeries seriesadd = new org.jfree.data.time.TimeSeries(tituloscript);
-            for (int i = 0; i < yvalues_double.length; i++)
-            {
+			// criar dataset e associar timeseries ao dataset
+			final org.jfree.data.time.TimeSeriesCollection datasettimeseries = new org.jfree.data.time.TimeSeriesCollection();
+			datasettimeseries.addSeries(seriesadd);
 
-                org.jfree.data.time.Millisecond millisegundoatual
-                        = new org.jfree.data.time.Millisecond(xvalues_date[i]);
+			// criar renderer
+			final org.jfree.chart.renderer.xy.XYLineAndShapeRenderer renderer = new org.jfree.chart.renderer.xy.DefaultXYItemRenderer();
+			renderer.setBaseShapesVisible(false);
+			renderer.setSeriesStroke(0, new BasicStroke(0.75f));
+			renderer.setSeriesPaint(0, Color.BLACK);
 
-                double valoratual = yvalues_double[i];
+			// criar ranges
+			final org.jfree.chart.axis.DateAxis domainAxis = new org.jfree.chart.axis.DateAxis("");
+			final org.jfree.chart.axis.NumberAxis rangeAxis = new org.jfree.chart.axis.NumberAxis("");
 
-                seriesadd.add(millisegundoatual, valoratual);
-            }
+			// criar xyplot e associar dataset e renderer ao xyplot
+			final org.jfree.chart.plot.XYPlot plot = new org.jfree.chart.plot.XYPlot(datasettimeseries, domainAxis,
+					rangeAxis, renderer);
+			plot.setDataset(datasettimeseries);
+			plot.setRenderer(renderer);
 
-            //criar dataset e associar timeseries ao dataset
-            org.jfree.data.time.TimeSeriesCollection datasettimeseries = new org.jfree.data.time.TimeSeriesCollection();
-            datasettimeseries.addSeries(seriesadd);
+			// criar chart
+			final org.jfree.chart.JFreeChart chart = new org.jfree.chart.JFreeChart(tituloscript.toUpperCase(), null,
+					plot, false);
 
-            //criar renderer
-            org.jfree.chart.renderer.xy.XYBarRenderer renderer = new org.jfree.chart.renderer.xy.XYBarRenderer();
-            renderer.setDrawBarOutline(true);
-            renderer.setBaseStroke(new BasicStroke(10.0f));
+			// criar chartpanel
+			this.chartpanelseparado = new org.jfree.chart.ChartPanel(chart);
+			this.chartpanelseparado.addChartMouseListener(new org.jfree.chart.ChartMouseListener() {
+				@Override
+				public void chartMouseClicked(org.jfree.chart.ChartMouseEvent e) {
+				}
 
-            //criar ranges
-            org.jfree.chart.axis.DateAxis domainAxis = new org.jfree.chart.axis.DateAxis("");
-            org.jfree.chart.axis.NumberAxis rangeAxis = new org.jfree.chart.axis.NumberAxis("");
+				@Override
+				public void chartMouseMoved(org.jfree.chart.ChartMouseEvent e) {
+					frame_resultadosbearcodeindicador.this.executaranotacaofixa_crosshair_mmove(e);
+				}
+			});
 
-            //criar xyplot e associar dataset e renderer ao xyplot
-            org.jfree.chart.plot.XYPlot plot = new org.jfree.chart.plot.XYPlot(datasettimeseries,domainAxis,rangeAxis,renderer);
-            plot.setDataset(datasettimeseries);
-            plot.setRenderer(renderer);
-            
-            //criar chart
-            org.jfree.chart.JFreeChart chartseparado = new org.jfree.chart.JFreeChart(tituloscript.toUpperCase(), null,plot,false);
+		} else if (desenhografico.equals("drawseparateline")) {
+			// interpretar valores de x como double, e de y como date
+			final double[] yvalues_double = (double[]) yvalues;
+			final java.util.Date[] xvalues_date = (java.util.Date[]) xvalues;
 
-            //criar chartpanel
-            chartpanelseparado = new org.jfree.chart.ChartPanel(chartseparado);
-            chartpanelseparado.addChartMouseListener(new org.jfree.chart.ChartMouseListener()
-            {
-                public void chartMouseClicked(org.jfree.chart.ChartMouseEvent e)
-                {
-                }
+			// criar timeseries com os dados
+			final org.jfree.data.time.TimeSeries seriesadd = new org.jfree.data.time.TimeSeries(tituloscript);
+			for (int i = 0; i < yvalues_double.length; i++) {
 
-                public void chartMouseMoved(org.jfree.chart.ChartMouseEvent e)
-                {
-                    executaranotacaofixa_crosshair_mmove(e);
-                }
-            });
-        }
-    }
+				final org.jfree.data.time.Millisecond millisegundoatual = new org.jfree.data.time.Millisecond(
+						xvalues_date[i]);
 
-        
-    // <editor-fold defaultstate="collapsed" desc="Adicionando Crosshair a este grafico">
-    java.util.List<org.jfree.chart.annotations.XYAnnotation> crosshair_preview;
-    void executaranotacaofixa_crosshair_mmove(org.jfree.chart.ChartMouseEvent cmevent)
-    {
-        try
-        {
-            org.jfree.chart.plot.XYPlot plotatual = (org.jfree.chart.plot.XYPlot) chartpanelseparado.getChart().getPlot();
+				final double valoratual = yvalues_double[i];
 
-            for (int i = 0; i < crosshair_preview.size(); i++)
-            {
-                plotatual.removeAnnotation((org.jfree.chart.annotations.XYAnnotation) crosshair_preview.get(i));
-            }
-        } 
-        catch (Exception ex)
-        {
-        }
+				seriesadd.add(millisegundoatual, valoratual);
+			}
 
-        crosshair_preview = adicionarplotohlc_anotacaofixacrosshair(cmevent);
-    }
-    
-    public java.util.List<org.jfree.chart.annotations.XYAnnotation> adicionarplotohlc_anotacaofixacrosshair(org.jfree.chart.ChartMouseEvent cmevent)
-    {
+			// criar dataset e associar timeseries ao dataset
+			final org.jfree.data.time.TimeSeriesCollection datasettimeseries = new org.jfree.data.time.TimeSeriesCollection();
+			datasettimeseries.addSeries(seriesadd);
 
-        //atualizar range e posicao atual do grafico
-        java.awt.geom.Point2D p = chartpanelseparado.translateScreenToJava2D(cmevent.getTrigger().getPoint());
-        java.awt.geom.Rectangle2D plotArea = chartpanelseparado.getChartRenderingInfo().getPlotInfo().getDataArea();
-        org.jfree.chart.plot.XYPlot plot = (org.jfree.chart.plot.XYPlot) chartpanelseparado.getChart().getPlot(); // your plot
-        double mcg_posmousex = plot.getDomainAxis().java2DToValue(p.getX(), plotArea, plot.getDomainAxisEdge());
-        double mcg_posmousey = plot.getRangeAxis().java2DToValue(p.getY(), plotArea, plot.getRangeAxisEdge());
-        org.jfree.data.Range mcg_rangex = plot.getDomainAxis().getRange();
-        org.jfree.data.Range mcg_rangey = plot.getRangeAxis().getRange();
+			// criar renderer
+			final org.jfree.chart.renderer.xy.XYLineAndShapeRenderer renderer = new org.jfree.chart.renderer.xy.DefaultXYItemRenderer();
+			renderer.setBaseShapesVisible(false);
+			renderer.setBaseStroke(new BasicStroke(2.0f));
 
-        //ponto central do crosshair
-        double centrocrosshair_x = mcg_posmousex;
-        double centrocrosshair_y = mcg_posmousey;
-        
-        //criando linha horizontal cinza
-        double lh_p1_x = mcg_rangex.getLowerBound();
-        double lh_p1_y = centrocrosshair_y;
-        double lh_p2_x = mcg_rangex.getUpperBound();
-        double lh_p2_y = centrocrosshair_y;
-        org.jfree.chart.annotations.XYLineAnnotation xylh = new org.jfree.chart.annotations.XYLineAnnotation(lh_p1_x, lh_p1_y, lh_p2_x, lh_p2_y, new BasicStroke(0.4f), Color.BLUE);
+			// criar ranges
+			final org.jfree.chart.axis.DateAxis domainAxis = new org.jfree.chart.axis.DateAxis("");
+			final org.jfree.chart.axis.NumberAxis rangeAxis = new org.jfree.chart.axis.NumberAxis("");
 
-        //criando linha vertical cinza
-        double lv_p1_x = centrocrosshair_x;
-        double lv_p1_y = mcg_rangey.getUpperBound();
-        double lv_p2_x = centrocrosshair_x;
-        double lv_p2_y = mcg_rangey.getLowerBound();
-        org.jfree.chart.annotations.XYLineAnnotation xylv = new org.jfree.chart.annotations.XYLineAnnotation(lv_p1_x, lv_p1_y, lv_p2_x, lv_p2_y, new BasicStroke(0.4f), Color.BLUE);
-        
-        //texto preco
-        String textopreco = String.format("%.4f", mcg_posmousey);
-        org.jfree.chart.annotations.XYTextAnnotation xytextopreco = new org.jfree.chart.annotations.XYTextAnnotation(textopreco, lh_p1_x,centrocrosshair_y);
-        xytextopreco.setTextAnchor(TextAnchor.TOP_LEFT);
-        
-        //texto data
-        String datacrosshair = new java.util.Date((long) mcg_posmousex).toString();
-        String textodata = datacrosshair;
-        org.jfree.chart.annotations.XYTextAnnotation xytextodata = new org.jfree.chart.annotations.XYTextAnnotation(textodata, centrocrosshair_x, lv_p2_y);
-        xytextodata.setTextAnchor(TextAnchor.BOTTOM_LEFT);
-        
-        plot.addAnnotation(xylh);
-        plot.addAnnotation(xylv);
-        plot.addAnnotation(xytextopreco);
-        plot.addAnnotation(xytextodata);
+			// criar xyplot e associar dataset e renderer ao xyplot
+			final org.jfree.chart.plot.XYPlot plot = new org.jfree.chart.plot.XYPlot(datasettimeseries, domainAxis,
+					rangeAxis, renderer);
+			plot.setDataset(datasettimeseries);
+			plot.setRenderer(renderer);
 
-        java.util.List<org.jfree.chart.annotations.XYAnnotation> subannotations = new java.util.ArrayList<>();
-        subannotations.add(xylh);
-        subannotations.add(xylv);
-        subannotations.add(xytextopreco);
-        subannotations.add(xytextodata);
+			// criar chart
+			final org.jfree.chart.JFreeChart chart = new org.jfree.chart.JFreeChart(tituloscript.toUpperCase(), null,
+					plot, false);
 
-        return subannotations;
-    }
+			// criar chartpanel
+			this.chartpanelseparado = new org.jfree.chart.ChartPanel(chart);
+			this.chartpanelseparado.addChartMouseListener(new org.jfree.chart.ChartMouseListener() {
+				@Override
+				public void chartMouseClicked(org.jfree.chart.ChartMouseEvent e) {
+				}
 
-    // </editor-fold>
-    
-    
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+				@Override
+				public void chartMouseMoved(org.jfree.chart.ChartMouseEvent e) {
+					frame_resultadosbearcodeindicador.this.executaranotacaofixa_crosshair_mmove(e);
+				}
+			});
 
-        jPanelPai = new javax.swing.JPanel();
-        jPanelChartResults = new javax.swing.JPanel();
+		} else if (desenhografico.equals("drawseparatebar")) {
+			// interpretar valores de x como double, e de y como date
+			final double[] yvalues_double = (double[]) yvalues;
+			final java.util.Date[] xvalues_date = (java.util.Date[]) xvalues;
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Indicator Editor Results");
+			// criar timeseries com os dados
+			final org.jfree.data.time.TimeSeries seriesadd = new org.jfree.data.time.TimeSeries(tituloscript);
+			for (int i = 0; i < yvalues_double.length; i++) {
 
-        jPanelPai.setBackground(new java.awt.Color(55, 55, 55));
+				final org.jfree.data.time.Millisecond millisegundoatual = new org.jfree.data.time.Millisecond(
+						xvalues_date[i]);
 
-        javax.swing.GroupLayout jPanelChartResultsLayout = new javax.swing.GroupLayout(jPanelChartResults);
-        jPanelChartResults.setLayout(jPanelChartResultsLayout);
-        jPanelChartResultsLayout.setHorizontalGroup(
-            jPanelChartResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 551, Short.MAX_VALUE)
-        );
-        jPanelChartResultsLayout.setVerticalGroup(
-            jPanelChartResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 392, Short.MAX_VALUE)
-        );
+				final double valoratual = yvalues_double[i];
 
-        javax.swing.GroupLayout jPanelPaiLayout = new javax.swing.GroupLayout(jPanelPai);
-        jPanelPai.setLayout(jPanelPaiLayout);
-        jPanelPaiLayout.setHorizontalGroup(
-            jPanelPaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelPaiLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelChartResults, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanelPaiLayout.setVerticalGroup(
-            jPanelPaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelPaiLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelChartResults, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+				seriesadd.add(millisegundoatual, valoratual);
+			}
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelPai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelPai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+			// criar dataset e associar timeseries ao dataset
+			final org.jfree.data.time.TimeSeriesCollection datasettimeseries = new org.jfree.data.time.TimeSeriesCollection();
+			datasettimeseries.addSeries(seriesadd);
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+			// criar renderer
+			final org.jfree.chart.renderer.xy.XYBarRenderer renderer = new org.jfree.chart.renderer.xy.XYBarRenderer();
+			renderer.setDrawBarOutline(true);
+			renderer.setBaseStroke(new BasicStroke(10.0f));
 
-    /**
-     * @param args the command line arguments
-     */
-    public static
-            void main(String args[])
-    {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try
-        {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        }
-        catch (ClassNotFoundException ex)
-        {
-            java.util.logging.Logger.getLogger(frame_resultadosbearcodeindicador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (InstantiationException ex)
-        {
-            java.util.logging.Logger.getLogger(frame_resultadosbearcodeindicador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex)
-        {
-            java.util.logging.Logger.getLogger(frame_resultadosbearcodeindicador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
-            java.util.logging.Logger.getLogger(frame_resultadosbearcodeindicador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+			// criar ranges
+			final org.jfree.chart.axis.DateAxis domainAxis = new org.jfree.chart.axis.DateAxis("");
+			final org.jfree.chart.axis.NumberAxis rangeAxis = new org.jfree.chart.axis.NumberAxis("");
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            public
-                    void run()
-            {
-                new frame_resultadosbearcodeindicador(mcbciip).setVisible(true);
-            }
-        });
-    }
+			// criar xyplot e associar dataset e renderer ao xyplot
+			final org.jfree.chart.plot.XYPlot plot = new org.jfree.chart.plot.XYPlot(datasettimeseries, domainAxis,
+					rangeAxis, renderer);
+			plot.setDataset(datasettimeseries);
+			plot.setRenderer(renderer);
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanelChartResults;
-    private javax.swing.JPanel jPanelPai;
-    // End of variables declaration//GEN-END:variables
+			// criar chart
+			final org.jfree.chart.JFreeChart chartseparado = new org.jfree.chart.JFreeChart(tituloscript.toUpperCase(),
+					null, plot, false);
+
+			// criar chartpanel
+			this.chartpanelseparado = new org.jfree.chart.ChartPanel(chartseparado);
+			this.chartpanelseparado.addChartMouseListener(new org.jfree.chart.ChartMouseListener() {
+				@Override
+				public void chartMouseClicked(org.jfree.chart.ChartMouseEvent e) {
+				}
+
+				@Override
+				public void chartMouseMoved(org.jfree.chart.ChartMouseEvent e) {
+					frame_resultadosbearcodeindicador.this.executaranotacaofixa_crosshair_mmove(e);
+				}
+			});
+		}
+	}
+
+	void executaranotacaofixa_crosshair_mmove(org.jfree.chart.ChartMouseEvent cmevent) {
+		try {
+			final org.jfree.chart.plot.XYPlot plotatual = (org.jfree.chart.plot.XYPlot) this.chartpanelseparado
+					.getChart().getPlot();
+
+			for (int i = 0; i < this.crosshair_preview.size(); i++) {
+				plotatual.removeAnnotation(this.crosshair_preview.get(i));
+			}
+		} catch (final Exception ex) {
+		}
+
+		this.crosshair_preview = this.adicionarplotohlc_anotacaofixacrosshair(cmevent);
+	}
+
+	/**
+	 * This method is called from within the constructor to initialize the form.
+	 * WARNING: Do NOT modify this code. The content of this method is always
+	 * regenerated by the Form Editor.
+	 */
+
+	// <editor-fold defaultstate="collapsed" desc="Generated
+	// Code">//GEN-BEGIN:initComponents
+	private void initComponents() {
+
+		this.jPanelPai = new javax.swing.JPanel();
+		this.jPanelChartResults = new javax.swing.JPanel();
+
+		this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+		this.setTitle("Indicator Editor Results");
+
+		this.jPanelPai.setBackground(new java.awt.Color(55, 55, 55));
+
+		final javax.swing.GroupLayout jPanelChartResultsLayout = new javax.swing.GroupLayout(this.jPanelChartResults);
+		this.jPanelChartResults.setLayout(jPanelChartResultsLayout);
+		jPanelChartResultsLayout.setHorizontalGroup(jPanelChartResultsLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 551, Short.MAX_VALUE));
+		jPanelChartResultsLayout.setVerticalGroup(jPanelChartResultsLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 392, Short.MAX_VALUE));
+
+		final javax.swing.GroupLayout jPanelPaiLayout = new javax.swing.GroupLayout(this.jPanelPai);
+		this.jPanelPai.setLayout(jPanelPaiLayout);
+		jPanelPaiLayout
+				.setHorizontalGroup(
+						jPanelPaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addGroup(jPanelPaiLayout.createSequentialGroup().addContainerGap()
+										.addComponent(this.jPanelChartResults, javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addContainerGap()));
+		jPanelPaiLayout
+				.setVerticalGroup(
+						jPanelPaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addGroup(jPanelPaiLayout.createSequentialGroup().addContainerGap()
+										.addComponent(this.jPanelChartResults, javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addContainerGap()));
+
+		final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this.getContentPane());
+		this.getContentPane().setLayout(layout);
+		layout.setHorizontalGroup(
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(this.jPanelPai,
+						javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+		layout.setVerticalGroup(
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(this.jPanelPai,
+						javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+
+		this.pack();
+	}// </editor-fold>//GEN-END:initComponents
 }

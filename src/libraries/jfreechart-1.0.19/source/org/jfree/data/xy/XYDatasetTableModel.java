@@ -251,7 +251,7 @@ public class XYDatasetTableModel extends AbstractTableModel
 //        frame.setContentPane(panel);
 //        frame.setSize(600, 500);
 //        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.show();
+//        frame.setVisible(true);
 //        RefineryUtilities.centerFrameOnScreen(frame);
 //    }
 

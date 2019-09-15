@@ -434,7 +434,7 @@ public class TimeSeriesChartFXDemo1 extends Application {
         stage.setTitle("JFreeChart: TimeSeriesFXDemo1.java"); 
         stage.setWidth(700);
         stage.setHeight(390);
-        stage.show();
+        stage.setVisible(true);
     }
     
     /**

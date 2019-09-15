@@ -17,11 +17,6 @@
 package main;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -38,7 +33,7 @@ public class OpenStock extends Application
         {
             java.util.concurrent.TimeUnit.MILLISECONDS.sleep(2000);
             frame_telaprincipal tprincipal = new frame_telaprincipal();
-            tprincipal.show();
+            tprincipal.setVisible(true);
         }
         catch (Exception ex)
         {

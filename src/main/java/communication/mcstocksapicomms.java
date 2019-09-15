@@ -73,12 +73,12 @@ public class mcstocksapicomms {
 			String bm_symbol = matchesarray.getJSONObject(i).getString("1. symbol");
 			String bm_name = matchesarray.getJSONObject(i).getString("2. name");
 			String bm_type = matchesarray.getJSONObject(i).getString("3. type");
-			String bm_region = matchesarray.getJSONObject(i).getString("4. region");
-			String bm_marketopen = matchesarray.getJSONObject(i).getString("5. marketOpen");
-			String bm_marketclose = matchesarray.getJSONObject(i).getString("6. marketClose");
-			String bm_timezone = matchesarray.getJSONObject(i).getString("7. timezone");
-			String bm_currency = matchesarray.getJSONObject(i).getString("8. currency");
-			String bm_matchscore = matchesarray.getJSONObject(i).getString("9. matchScore");
+//			String bm_region = matchesarray.getJSONObject(i).getString("4. region");
+//			String bm_marketopen = matchesarray.getJSONObject(i).getString("5. marketOpen");
+//			String bm_marketclose = matchesarray.getJSONObject(i).getString("6. marketClose");
+//			String bm_timezone = matchesarray.getJSONObject(i).getString("7. timezone");
+//			String bm_currency = matchesarray.getJSONObject(i).getString("8. currency");
+//			String bm_matchscore = matchesarray.getJSONObject(i).getString("9. matchScore");
 
 			// mierclasses.mcfuncoeshelper.mostrarmensagem(bm_symbol + " - " + bm_name + "
 			// (" + bm_type + ")");
@@ -116,12 +116,12 @@ public class mcstocksapicomms {
 
 		JSONObject obj = new JSONObject(jsonconteudo);
 
-		String md_information = obj.getJSONObject("Meta Data").getString("1. Information");
-		String md_symbol = obj.getJSONObject("Meta Data").getString("2. Symbol");
-		String md_lastrefreshed = obj.getJSONObject("Meta Data").getString("3. Last Refreshed");
-		String md_interval = obj.getJSONObject("Meta Data").getString("4. Interval");
-		String md_outputsize = obj.getJSONObject("Meta Data").getString("5. Output Size");
-		String md_timezone = obj.getJSONObject("Meta Data").getString("6. Time Zone");
+//		String md_information = obj.getJSONObject("Meta Data").getString("1. Information");
+//		String md_symbol = obj.getJSONObject("Meta Data").getString("2. Symbol");
+//		String md_lastrefreshed = obj.getJSONObject("Meta Data").getString("3. Last Refreshed");
+//		String md_interval = obj.getJSONObject("Meta Data").getString("4. Interval");
+//		String md_outputsize = obj.getJSONObject("Meta Data").getString("5. Output Size");
+//		String md_timezone = obj.getJSONObject("Meta Data").getString("6. Time Zone");
 
 		JSONObject candlesjson = obj.getJSONObject("Time Series (" + intervalo + ")");
 		JSONArray candlesjsontimestamparray = candlesjson.names();
@@ -161,6 +161,7 @@ public class mcstocksapicomms {
 
 		// reordernar lista de candles antes de retornar
 		java.util.Collections.sort(listacandlesretornar, new java.util.Comparator<communication.mccandle>() {
+			@Override
 			public int compare(communication.mccandle candleone, communication.mccandle candletwo) {
 				return candleone.timestampdate.compareTo(candletwo.timestampdate);
 			}
@@ -180,11 +181,11 @@ public class mcstocksapicomms {
 
 		JSONObject obj = new JSONObject(jsonconteudo);
 
-		String md_information = obj.getJSONObject("Meta Data").getString("1. Information");
-		String md_symbol = obj.getJSONObject("Meta Data").getString("2. Symbol");
-		String md_lastrefreshed = obj.getJSONObject("Meta Data").getString("3. Last Refreshed");
-		String md_outputsize = obj.getJSONObject("Meta Data").getString("4. Output Size");
-		String md_timezone = obj.getJSONObject("Meta Data").getString("5. Time Zone");
+//		String md_information = obj.getJSONObject("Meta Data").getString("1. Information");
+//		String md_symbol = obj.getJSONObject("Meta Data").getString("2. Symbol");
+//		String md_lastrefreshed = obj.getJSONObject("Meta Data").getString("3. Last Refreshed");
+//		String md_outputsize = obj.getJSONObject("Meta Data").getString("4. Output Size");
+//		String md_timezone = obj.getJSONObject("Meta Data").getString("5. Time Zone");
 
 		JSONObject candlesjson = obj.getJSONObject("Time Series (Daily)");
 		JSONArray candlesjsontimestamparray = candlesjson.names();
@@ -207,6 +208,7 @@ public class mcstocksapicomms {
 
 		// reordernar lista de candles antes de retornar
 		java.util.Collections.sort(listacandlesretornar, new java.util.Comparator<communication.mccandle>() {
+			@Override
 			public int compare(communication.mccandle candleone, communication.mccandle candletwo) {
 				return candleone.timestampdate.compareTo(candletwo.timestampdate);
 			}
@@ -227,10 +229,10 @@ public class mcstocksapicomms {
 
 		JSONObject obj = new JSONObject(jsonconteudo);
 
-		String md_information = obj.getJSONObject("Meta Data").getString("1. Information");
-		String md_symbol = obj.getJSONObject("Meta Data").getString("2. Symbol");
-		String md_lastrefreshed = obj.getJSONObject("Meta Data").getString("3. Last Refreshed");
-		String md_timezone = obj.getJSONObject("Meta Data").getString("4. Time Zone");
+//		String md_information = obj.getJSONObject("Meta Data").getString("1. Information");
+//		String md_symbol = obj.getJSONObject("Meta Data").getString("2. Symbol");
+//		String md_lastrefreshed = obj.getJSONObject("Meta Data").getString("3. Last Refreshed");
+//		String md_timezone = obj.getJSONObject("Meta Data").getString("4. Time Zone");
 
 		JSONObject candlesjson = obj.getJSONObject("Weekly Time Series");
 		JSONArray candlesjsontimestamparray = candlesjson.names();
@@ -253,6 +255,7 @@ public class mcstocksapicomms {
 
 		// reordernar lista de candles antes de retornar
 		java.util.Collections.sort(listacandlesretornar, new java.util.Comparator<communication.mccandle>() {
+			@Override
 			public int compare(communication.mccandle candleone, communication.mccandle candletwo) {
 				return candleone.timestampdate.compareTo(candletwo.timestampdate);
 			}
@@ -273,10 +276,10 @@ public class mcstocksapicomms {
 
 		JSONObject obj = new JSONObject(jsonconteudo);
 
-		String md_information = obj.getJSONObject("Meta Data").getString("1. Information");
-		String md_symbol = obj.getJSONObject("Meta Data").getString("2. Symbol");
-		String md_lastrefreshed = obj.getJSONObject("Meta Data").getString("3. Last Refreshed");
-		String md_timezone = obj.getJSONObject("Meta Data").getString("4. Time Zone");
+//		String md_information = obj.getJSONObject("Meta Data").getString("1. Information");
+//		String md_symbol = obj.getJSONObject("Meta Data").getString("2. Symbol");
+//		String md_lastrefreshed = obj.getJSONObject("Meta Data").getString("3. Last Refreshed");
+//		String md_timezone = obj.getJSONObject("Meta Data").getString("4. Time Zone");
 
 		JSONObject candlesjson = obj.getJSONObject("Monthly Time Series");
 		JSONArray candlesjsontimestamparray = candlesjson.names();
@@ -299,6 +302,7 @@ public class mcstocksapicomms {
 
 		// reordernar lista de candles antes de retornar
 		java.util.Collections.sort(listacandlesretornar, new java.util.Comparator<communication.mccandle>() {
+			@Override
 			public int compare(communication.mccandle candleone, communication.mccandle candletwo) {
 				return candleone.timestampdate.compareTo(candletwo.timestampdate);
 			}
@@ -332,13 +336,13 @@ public class mcstocksapicomms {
 
 		JSONObject obj = new JSONObject(jsonconteudo);
 
-		String md_information = obj.getJSONObject("Meta Data").getString("1. Information");
-		String md_fromsymbol = obj.getJSONObject("Meta Data").getString("2. From Symbol");
-		String md_tosymbol = obj.getJSONObject("Meta Data").getString("3. To Symbol");
-		String md_lastrefreshed = obj.getJSONObject("Meta Data").getString("4. Last Refreshed");
-		String md_interval = obj.getJSONObject("Meta Data").getString("5. Interval");
-		String md_outputsize = obj.getJSONObject("Meta Data").getString("6. Output Size");
-		String md_timezone = obj.getJSONObject("Meta Data").getString("7. Time Zone");
+//		String md_information = obj.getJSONObject("Meta Data").getString("1. Information");
+//		String md_fromsymbol = obj.getJSONObject("Meta Data").getString("2. From Symbol");
+//		String md_tosymbol = obj.getJSONObject("Meta Data").getString("3. To Symbol");
+//		String md_lastrefreshed = obj.getJSONObject("Meta Data").getString("4. Last Refreshed");
+//		String md_interval = obj.getJSONObject("Meta Data").getString("5. Interval");
+//		String md_outputsize = obj.getJSONObject("Meta Data").getString("6. Output Size");
+//		String md_timezone = obj.getJSONObject("Meta Data").getString("7. Time Zone");
 
 		JSONObject candlesjson = obj.getJSONObject("Time Series FX (" + intervalo + ")");
 		JSONArray candlesjsontimestamparray = candlesjson.names();
@@ -377,6 +381,7 @@ public class mcstocksapicomms {
 
 		// reordernar lista de candles antes de retornar
 		java.util.Collections.sort(listacandlesretornar, new java.util.Comparator<communication.mccandle>() {
+			@Override
 			public int compare(communication.mccandle candleone, communication.mccandle candletwo) {
 				return candleone.timestampdate.compareTo(candletwo.timestampdate);
 			}
@@ -397,12 +402,12 @@ public class mcstocksapicomms {
 
 		JSONObject obj = new JSONObject(jsonconteudo);
 
-		String md_information = obj.getJSONObject("Meta Data").getString("1. Information");
-		String md_fromsymbol = obj.getJSONObject("Meta Data").getString("2. From Symbol");
-		String md_tosymbol = obj.getJSONObject("Meta Data").getString("3. To Symbol");
-		String md_outputsize = obj.getJSONObject("Meta Data").getString("4. Output Size");
-		String md_lastrefreshed = obj.getJSONObject("Meta Data").getString("5. Last Refreshed");
-		String md_timezone = obj.getJSONObject("Meta Data").getString("6. Time Zone");
+//		String md_information = obj.getJSONObject("Meta Data").getString("1. Information");
+//		String md_fromsymbol = obj.getJSONObject("Meta Data").getString("2. From Symbol");
+//		String md_tosymbol = obj.getJSONObject("Meta Data").getString("3. To Symbol");
+//		String md_outputsize = obj.getJSONObject("Meta Data").getString("4. Output Size");
+//		String md_lastrefreshed = obj.getJSONObject("Meta Data").getString("5. Last Refreshed");
+//		String md_timezone = obj.getJSONObject("Meta Data").getString("6. Time Zone");
 
 		JSONObject candlesjson = obj.getJSONObject("Time Series FX (Daily)");
 		JSONArray candlesjsontimestamparray = candlesjson.names();
@@ -423,6 +428,7 @@ public class mcstocksapicomms {
 
 		// reordernar lista de candles antes de retornar
 		java.util.Collections.sort(listacandlesretornar, new java.util.Comparator<communication.mccandle>() {
+			@Override
 			public int compare(communication.mccandle candleone, communication.mccandle candletwo) {
 				return candleone.timestampdate.compareTo(candletwo.timestampdate);
 			}
@@ -442,11 +448,11 @@ public class mcstocksapicomms {
 
 		JSONObject obj = new JSONObject(jsonconteudo);
 
-		String md_information = obj.getJSONObject("Meta Data").getString("1. Information");
-		String md_fromsymbol = obj.getJSONObject("Meta Data").getString("2. From Symbol");
-		String md_tosymbol = obj.getJSONObject("Meta Data").getString("3. To Symbol");
-		String md_lastrefreshed = obj.getJSONObject("Meta Data").getString("4. Last Refreshed");
-		String md_timezone = obj.getJSONObject("Meta Data").getString("5. Time Zone");
+//		String md_information = obj.getJSONObject("Meta Data").getString("1. Information");
+//		String md_fromsymbol = obj.getJSONObject("Meta Data").getString("2. From Symbol");
+//		String md_tosymbol = obj.getJSONObject("Meta Data").getString("3. To Symbol");
+//		String md_lastrefreshed = obj.getJSONObject("Meta Data").getString("4. Last Refreshed");
+//		String md_timezone = obj.getJSONObject("Meta Data").getString("5. Time Zone");
 
 		JSONObject candlesjson = obj.getJSONObject("Time Series FX (Weekly)");
 		JSONArray candlesjsontimestamparray = candlesjson.names();
@@ -467,6 +473,7 @@ public class mcstocksapicomms {
 
 		// reordernar lista de candles antes de retornar
 		java.util.Collections.sort(listacandlesretornar, new java.util.Comparator<communication.mccandle>() {
+			@Override
 			public int compare(communication.mccandle candleone, communication.mccandle candletwo) {
 				return candleone.timestampdate.compareTo(candletwo.timestampdate);
 			}
@@ -486,11 +493,11 @@ public class mcstocksapicomms {
 
 		JSONObject obj = new JSONObject(jsonconteudo);
 
-		String md_information = obj.getJSONObject("Meta Data").getString("1. Information");
-		String md_fromsymbol = obj.getJSONObject("Meta Data").getString("2. From Symbol");
-		String md_tosymbol = obj.getJSONObject("Meta Data").getString("3. To Symbol");
-		String md_lastrefreshed = obj.getJSONObject("Meta Data").getString("4. Last Refreshed");
-		String md_timezone = obj.getJSONObject("Meta Data").getString("5. Time Zone");
+//		String md_information = obj.getJSONObject("Meta Data").getString("1. Information");
+//		String md_fromsymbol = obj.getJSONObject("Meta Data").getString("2. From Symbol");
+//		String md_tosymbol = obj.getJSONObject("Meta Data").getString("3. To Symbol");
+//		String md_lastrefreshed = obj.getJSONObject("Meta Data").getString("4. Last Refreshed");
+//		String md_timezone = obj.getJSONObject("Meta Data").getString("5. Time Zone");
 
 		JSONObject candlesjson = obj.getJSONObject("Time Series FX (Monthly)");
 		JSONArray candlesjsontimestamparray = candlesjson.names();
@@ -511,6 +518,7 @@ public class mcstocksapicomms {
 
 		// reordernar lista de candles antes de retornar
 		java.util.Collections.sort(listacandlesretornar, new java.util.Comparator<communication.mccandle>() {
+			@Override
 			public int compare(communication.mccandle candleone, communication.mccandle candletwo) {
 				return candleone.timestampdate.compareTo(candletwo.timestampdate);
 			}
@@ -637,6 +645,7 @@ public class mcstocksapicomms {
 
 		// reordernar lista de candles antes de retornar
 		java.util.Collections.sort(listacandlesretornar, new java.util.Comparator<communication.mccandle>() {
+			@Override
 			public int compare(communication.mccandle candleone, communication.mccandle candletwo) {
 				return candleone.timestampdate.compareTo(candletwo.timestampdate);
 			}
@@ -778,6 +787,7 @@ public class mcstocksapicomms {
 
 		// reordernar lista de candles antes de retornar
 		java.util.Collections.sort(listacandlesretornar, new java.util.Comparator<communication.mccandle>() {
+			@Override
 			public int compare(communication.mccandle candleone, communication.mccandle candletwo) {
 				return candleone.timestampdate.compareTo(candletwo.timestampdate);
 			}
@@ -854,6 +864,7 @@ public class mcstocksapicomms {
 
 		// reordernar lista de candles antes de retornar
 		java.util.Collections.sort(listacandlesretornar, new java.util.Comparator<communication.mccandle>() {
+			@Override
 			public int compare(communication.mccandle candleone, communication.mccandle candletwo) {
 				return candleone.timestampdate.compareTo(candletwo.timestampdate);
 			}
@@ -899,6 +910,7 @@ public class mcstocksapicomms {
 
 		// reordernar lista de candles antes de retornar
 		java.util.Collections.sort(listacandlesretornar, new java.util.Comparator<communication.mccandle>() {
+			@Override
 			public int compare(communication.mccandle candleone, communication.mccandle candletwo) {
 				return candleone.timestampdate.compareTo(candletwo.timestampdate);
 			}
