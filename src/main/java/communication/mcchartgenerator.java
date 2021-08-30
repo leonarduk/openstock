@@ -16,10 +16,11 @@
  */
 package communication;
 
+import org.jfree.chart.ui.TextAnchor;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 
-import org.jfree.ui.TextAnchor;
 
 /**
  *
@@ -764,8 +765,8 @@ public class mcchartgenerator {
 		// <editor-fold defaultstate="collapsed" desc="criar um timeseriescollection,
 		// para receber timeseries de novos indicadores para este MCG">
 		org.jfree.chart.renderer.xy.XYLineAndShapeRenderer rendereradd = new org.jfree.chart.renderer.xy.DefaultXYItemRenderer();
-		rendereradd.setBaseShapesVisible(false);
-		rendereradd.setBaseStroke(new BasicStroke(2.0f));
+		rendereradd.setDefaultShapesVisible(false);
+		rendereradd.setDefaultStroke(new BasicStroke(2.0f));
 		org.jfree.chart.plot.XYPlot plotatual = (org.jfree.chart.plot.XYPlot) mcg_chart.getPlot();
 		timeseriesindicadoresohlc = new org.jfree.data.time.TimeSeriesCollection();
 		plotatual.setDataset(1, timeseriesindicadoresohlc);

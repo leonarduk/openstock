@@ -16,10 +16,10 @@
  */
 package options.editorbearcodeindicador;
 
+import org.jfree.chart.ui.TextAnchor;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
-
-import org.jfree.ui.TextAnchor;
 
 /**
  *
@@ -193,7 +193,7 @@ public class frame_resultadosbearcodeindicador extends javax.swing.JFrame {
 
 			// criar renderer
 			final org.jfree.chart.renderer.xy.XYLineAndShapeRenderer renderer = new org.jfree.chart.renderer.xy.DefaultXYItemRenderer();
-			renderer.setBaseShapesVisible(false);
+			renderer.setDefaultShapesVisible(false);
 			renderer.setSeriesStroke(0, new BasicStroke(0.75f));
 			renderer.setSeriesPaint(0, Color.BLACK);
 
@@ -247,8 +247,8 @@ public class frame_resultadosbearcodeindicador extends javax.swing.JFrame {
 
 			// criar renderer
 			final org.jfree.chart.renderer.xy.XYLineAndShapeRenderer renderer = new org.jfree.chart.renderer.xy.DefaultXYItemRenderer();
-			renderer.setBaseShapesVisible(false);
-			renderer.setBaseStroke(new BasicStroke(2.0f));
+			renderer.setDefaultShapesVisible(false);
+			renderer.setDefaultStroke(new BasicStroke(2.0f));
 
 			// criar ranges
 			final org.jfree.chart.axis.DateAxis domainAxis = new org.jfree.chart.axis.DateAxis("");
@@ -301,7 +301,7 @@ public class frame_resultadosbearcodeindicador extends javax.swing.JFrame {
 			// criar renderer
 			final org.jfree.chart.renderer.xy.XYBarRenderer renderer = new org.jfree.chart.renderer.xy.XYBarRenderer();
 			renderer.setDrawBarOutline(true);
-			renderer.setBaseStroke(new BasicStroke(10.0f));
+			renderer.setDefaultStroke(new BasicStroke(10.0f));
 
 			// criar ranges
 			final org.jfree.chart.axis.DateAxis domainAxis = new org.jfree.chart.axis.DateAxis("");

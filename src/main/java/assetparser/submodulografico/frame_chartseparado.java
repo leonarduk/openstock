@@ -78,8 +78,8 @@ public class frame_chartseparado extends javax.swing.JFrame
 
             //criar renderer
             org.jfree.chart.renderer.xy.XYLineAndShapeRenderer renderer = new org.jfree.chart.renderer.xy.DefaultXYItemRenderer();
-            renderer.setBaseShapesVisible(false);
-            renderer.setBaseStroke(new BasicStroke(2.0f));
+            renderer.setDefaultShapesVisible(false);
+            renderer.setDefaultStroke(new BasicStroke(2.0f));
 
             //criar ranges
             org.jfree.chart.axis.DateAxis domainAxis = new org.jfree.chart.axis.DateAxis("");
@@ -134,8 +134,8 @@ public class frame_chartseparado extends javax.swing.JFrame
 
             //criar renderer
             org.jfree.chart.renderer.xy.XYLineAndShapeRenderer renderer = new org.jfree.chart.renderer.xy.DefaultXYItemRenderer();
-            renderer.setBaseShapesVisible(false);
-            renderer.setBaseStroke(new BasicStroke(2.0f));
+            renderer.setDefaultShapesVisible(false);
+            renderer.setDefaultStroke(new BasicStroke(2.0f));
 
             //criar ranges
             org.jfree.chart.axis.DateAxis domainAxis = new org.jfree.chart.axis.DateAxis("");
@@ -191,7 +191,7 @@ public class frame_chartseparado extends javax.swing.JFrame
             //criar renderer
             org.jfree.chart.renderer.xy.XYBarRenderer renderer = new org.jfree.chart.renderer.xy.XYBarRenderer();
             renderer.setDrawBarOutline(true);
-            renderer.setBaseStroke(new BasicStroke(10.0f));
+            renderer.setDefaultStroke(new BasicStroke(10.0f));
 
             //criar ranges
             org.jfree.chart.axis.DateAxis domainAxis = new org.jfree.chart.axis.DateAxis("");

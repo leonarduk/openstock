@@ -16,9 +16,10 @@
  */
 package options.editorbearcodetraderbot;
 
+import org.jfree.chart.ui.TextAnchor;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
-import org.jfree.ui.TextAnchor;
 
 /**
  *
@@ -147,7 +148,7 @@ public class frame_resultadosbearcodetraderbot extends javax.swing.JFrame
 
         //criar renderer
         org.jfree.chart.renderer.xy.XYLineAndShapeRenderer renderer = new org.jfree.chart.renderer.xy.DefaultXYItemRenderer();
-        renderer.setBaseShapesVisible(false);
+        renderer.setDefaultShapesVisible(false);
         renderer.setSeriesStroke(0, new BasicStroke(0.75f));
         renderer.setSeriesPaint(0, Color.BLACK);
 
