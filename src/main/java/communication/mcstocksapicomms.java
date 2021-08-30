@@ -16,15 +16,15 @@
  */
 package communication;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.apache.commons.io.FileUtils;
-
-//classe para interpretacao de informacoes json recebidas pelo IEX api
-
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+
+//classe para interpretacao de informacoes json recebidas pelo IEX api
 
 //https://iextrading.com/developer/docs/#getting-started
 /**
@@ -58,15 +58,21 @@ public class mcstocksapicomms {
 
 	public java.util.List<String> av_procurarsimbolo(String parametrobusca) {
 		String jsonconteudo = "";
+		String url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords="
+				+ parametrobusca + "&apikey=" + av_chave;
 		jsonconteudo = mwcomms
-				.receberconteudopagina("https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords="
-						+ parametrobusca + "&apikey=" + av_chave);
+				.receberconteudopagina(url);
+
+		java.util.logging.Logger.getLogger(mcstocksapicomms.class.getName())
+				.log(Level.INFO, url + " : " + jsonconteudo);
+
 		// mierclasses.mcfuncoeshelper.mostrarmensagem(jsonconteudo);
 		// mierclasses.mcfuncoeshelper.setarclipboard(jsonconteudo);
 
 		JSONObject obj = new JSONObject(jsonconteudo);
 
 		JSONArray matchesarray = obj.getJSONArray("bestMatches");
+
 
 		java.util.List<String> listasimbolosencontrada = new java.util.ArrayList<>();
 		for (int i = 0; i < matchesarray.length(); i++) {
