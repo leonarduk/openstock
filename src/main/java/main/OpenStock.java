@@ -49,5 +49,6 @@ public class OpenStock extends Application
     {
         launch(args);
     }
-    
+
+    // Run with mvn clean javafx:run
 }
